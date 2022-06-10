@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-import GoalList from './GoalList';
-import NewGoal from './NewGoal';
-const App = () => {
-  const [goals, setGoals] = useState([
-    { key: 1, title: "React Native" },
-    { key: 2, title: "Javascript" },
-    { key: 3, title: "React and Redux" },
-  ])
-  const onAddGoal = newGoal => {
-    setGoals(goals => goals.concat(newGoal))
-  }
+import React from 'react';
+import './App.css'
+import NewPlace from './place/components/PlaceItem';
+import Users from './user/pages/Users';
 
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './shared/components/Navbar';
+import UserPlaces from './place/pages/UserPlaces';
+import ErrorPage from './user/pages/ErrorPage';
+import Footer from './shared/components/Footer';
+function App() {
+  // bscf
   return (
-    <div className="container gr mt-5">
-      <div class="col-xs-1-12">
-        <NewGoal onAddGoal={onAddGoal} />
-        <GoalList goals={goals} />
+    <div className='d-flex flex-column h-100'>
+      <Navbar />
+      <div className='container'>
+        <Routes>
+          <Route path='/' element={<Users />} />
+          <Route path='/:userId/places' element={<UserPlaces />} />
+          <Route path='places/new' element={<NewPlace />} />
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
       </div>
+      <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
